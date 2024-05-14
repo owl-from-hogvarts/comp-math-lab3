@@ -32,7 +32,8 @@ struct Config {
 
 type SingleVariableFunction = fn(f64) -> f64;
 
-const FUNCTIONS: [SingleVariableFunction; 3] = [
+const FUNCTIONS: [SingleVariableFunction; 4] = [
+    |x| 2. * x.powi(3) - 2. * x.powi(2) + 7. * x - 14.,
     |x| -3. * x.powi(3) - 5. * x.powi(2) + 4. * x - 2.,
     |x| x.sin() + 1.125,
     |x| x.sqrt().sin() + 2.,
@@ -49,7 +50,8 @@ fn start() -> Result<(), InquireError> {
     let function_index = Select::new(
         "Select function",
         vec![
-            "-3*x^3 - 5*x^2 + 4*x - 2",
+            "2x^3 - 2x^2 + 7x - 14",
+            "-3x^3 - 5x^2 + 4x - 2",
             "sin(x) + 1.125",
             "sin(sqrt(x)) + 2",
         ],
@@ -172,6 +174,7 @@ fn compute_integral(
 
 fn solve_rectanlge(config: &Config, mode: RectangleMode, function: SingleVariableFunction) -> f64 {
     let step_length = compute_step_length(&config);
+
     let half_step = step_length / 2.;
 
     let mut integral_sum: f64 = 0.;
